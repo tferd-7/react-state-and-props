@@ -1,14 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<style>
+    body {
+        font-family: verdana;
+    }
+
+    .tomato {
+        color: tomato;
+    }
+</style>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>  
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Faker/3.1.0/faker.min.js"></script>
     <title>Document</title>
 </head>
 <body>
+    <div id="app"></div>
+<script>
+    const { render } = ReactDOM;
+    const { Component } = React;
+
+    class App extends Component {
+        constructor() {
+            super();
+            this.state = {
+                productName: faker.commerce.product()
+            };
+            setInterval(()=> {
+                const productName = faker.commerce.product();
+                this.state.productName = productName;
+                this.setState({ productName });
+            }, 500);
+        }
+
+        render(){
+            const { productName } = this.state;
+
+            return React.createElement(
+                'section',
+                null,
+                React.createElement(
+                    'h1',
+                    { className: 'tomato' },
+                    productName
+                )
+            );
+        }
+    }
+    render(React.createElement(App), document.querySelector('#app'));
+</script>
     
 </body>
 </html>
